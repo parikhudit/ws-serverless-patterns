@@ -12,7 +12,7 @@ boto3.setup_default_session(region_name='us-west-2')
 
 def get_stack_outputs(stack_name):
     result = {}
-    cf_client = boto3.client('cloudformation')
+    cf_client = boto3.client('cloudformation', region_name='us-west-2')
     cf_response = cf_client.describe_stacks(StackName=stack_name)
     outputs = cf_response["Stacks"][0]["Outputs"]
     for output in outputs:
@@ -21,8 +21,8 @@ def get_stack_outputs(stack_name):
 
 def create_cognito_accounts():
     result = {}
-    sm_client = boto3.client('secretsmanager')
-    idp_client = boto3.client('cognito-idp')
+    sm_client = boto3.client('secretsmanager', region_name='us-west-2')
+    idp_client = boto3.client('cognito-idp', region_name='us-west-2')
     # create regular user account
     sm_response = sm_client.get_random_password(ExcludeCharacters='"''`[]{}():;,$/\\<>|=&',
                                                 RequireEachIncludedType=True)
@@ -93,7 +93,7 @@ def create_cognito_accounts():
 
 def clear_dynamo_tables():
     # clear all data from the tables that will be used for testing
-    dbd_client = boto3.client('dynamodb')
+    dbd_client = boto3.client('dynamodb', region_name='us-west-2')
     db_response = dbd_client.scan(
         TableName=globalConfig['UsersTable'],
         AttributesToGet=['userid']

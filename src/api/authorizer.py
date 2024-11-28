@@ -16,6 +16,7 @@ user_pool_id = os.getenv('USER_POOL_ID', None)
 app_client_id = os.getenv('APPLICATION_CLIENT_ID', None)
 admin_group_name = os.getenv('ADMIN_GROUP_NAME', None)
 
+boto3.setup_default_session(region_name='us-west-2')
 
 def validate_token(token, region):
     global keys, is_cold_start, user_pool_id, app_client_id

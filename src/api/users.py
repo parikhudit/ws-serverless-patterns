@@ -7,6 +7,7 @@ import os
 import boto3
 from datetime import datetime
 
+boto3.setup_default_session(region_name='us-west-2')
 # Prepare DynamoDB client
 USERS_TABLE = os.getenv('USERS_TABLE', None)
 dynamodb = boto3.resource('dynamodb')

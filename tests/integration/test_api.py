@@ -7,6 +7,8 @@ import requests
 new_user_id = ""
 new_user = {"name": "John Doe"}
 
+boto3.setup_default_session(region_name='us-west-2')
+
 def test_access_to_the_users_without_authentication(global_config):
     response = requests.get(global_config["APIEndpoint"] + '/users')
     assert response.status_code == 401
